@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lentera Belajar – Les Privat SD, SMP, SMA</title>
+<meta name="description" content="Les privat 1-on-1 untuk SD–SMA. Guru datang ke rumah atau online. Coba gratis 1x sesi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    fontFamily: { sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'] },
+    colors: { night: '#0B1120', navy: '#131C31', amber: { DEFAULT: '#F59E0B', soft: '#FBBF24' }, ink: '#F8FAFC', mist: '#94A3B8' }
+  } }
+}
+</script>
+<style>
+  body { background:#0B1120; color:#F8FAFC; }
+  .glass { background:rgba(19,28,49,.6); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.08); }
+  .card { background:#131C31; border:1px solid rgba(255,255,255,.08); transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+  .card:hover { transform:translateY(-4px); border-color:rgba(251,191,36,.4); box-shadow:0 18px 40px -18px rgba(245,158,11,.25); }
+  .btn-glow { background:linear-gradient(135deg,#FBBF24,#F59E0B); color:#0B1120; box-shadow:0 0 0 0 rgba(251,191,36,.5), 0 10px 30px -8px rgba(245,158,11,.6); transition:transform .25s ease, box-shadow .25s ease; }
+  .btn-glow:hover { transform:translateY(-2px); box-shadow:0 0 0 6px rgba(251,191,36,.15), 0 16px 40px -8px rgba(245,158,11,.8); }
+  .btn-ghost { border:1px solid rgba(255,255,255,.18); transition:background .25s ease, border-color .25s ease, transform .25s ease; }
+  .btn-ghost:hover { background:rgba(255,255,255,.06); border-color:rgba(251,191,36,.5); transform:translateY(-2px); }
+  .hero-glow { background:radial-gradient(60% 55% at 70% 30%, rgba(245,158,11,.20), transparent 70%), radial-gradient(45% 40% at 10% 80%, rgba(56,89,170,.18), transparent 70%); }
+  /* Satu momen utama: lentera menyala */
+  @keyframes flicker { 0%,100%{opacity:1; transform:scale(1)} 45%{opacity:.82; transform:scale(.97)} 70%{opacity:.95; transform:scale(1.03)} }
+  @keyframes sway { 0%,100%{transform:rotate(-1.5deg)} 50%{transform:rotate(1.5deg)} }
+  .flame-glow { animation:flicker 3.2s ease-in-out infinite; transform-origin:center; }
+  .lantern { animation:sway 6s ease-in-out infinite; transform-origin:50% 0; }
+  .faq-body { display:grid; grid-template-rows:0fr; transition:grid-template-rows .3s ease; }
+  .faq-item.open .faq-body { grid-template-rows:1fr; }
+  .faq-item.open .faq-chev { transform:rotate(180deg); }
+  .faq-chev { transition:transform .3s ease; }
+  .tab-btn[aria-selected="true"] { background:linear-gradient(135deg,#FBBF24,#F59E0B); color:#0B1120; }
+  a:focus-visible, button:focus-visible { outline:2px solid #FBBF24; outline-offset:3px; border-radius:10px; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body class="font-sans antialiased">
+
+<!-- NAVBAR -->
+<header class="fixed top-0 inset-x-0 z-50">
+  <nav class="glass mx-auto mt-3 max-w-6xl rounded-2xl px-4 sm:px-6 h-16 flex items-center justify-between" style="width:calc(100% - 1.5rem)">
+    <a href="#top" class="flex items-center gap-2.5 font-extrabold text-lg">
+      <span class="grid place-items-center w-9 h-9 rounded-xl bg-amber/15 text-amber-soft"><i data-icon="lantern" class="w-5 h-5"></i></span>
+      Lentera Belajar
+    </a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-mist">
+      <li><a class="hover:text-ink transition-colors" href="#program">Program</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#keunggulan">Keunggulan</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#harga">Paket Harga</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#testimoni">Testimoni</a></li>
+      <li><a class="hover:text-ink transition-colors" href="#faq">FAQ</a></li>
+    </ul>
+    <div class="flex items-center gap-2">
+      <a href="#daftar" class="btn-glow hidden sm:inline-block rounded-xl px-4 py-2.5 text-sm font-bold">Coba Gratis 1x</a>
+      <button id="menuBtn" class="md:hidden grid place-items-center w-10 h-10 rounded-xl border border-white/10" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu">
+        <i data-icon="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </nav>
+  <div id="mobileMenu" class="glass hidden md:hidden mx-3 mt-2 rounded-2xl p-4">
+    <ul class="flex flex-col text-sm font-medium">
+      <li><a class="block py-3 px-2 text-mist hover:text-ink" href="#program">Program</a></li>
+      <li><a class="block py-3 px-2 text-mist hover:text-ink" href="#keunggulan">Keunggulan</a></li>
+      <li><a class="block py-3 px-2 text-mist hover:text-ink" href="#harga">Paket Harga</a></li>
+      <li><a class="block py-3 px-2 text-mist hover:text-ink" href="#testimoni">Testimoni</a></li>
+      <li><a class="block py-3 px-2 text-mist hover:text-ink" href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#daftar" class="btn-glow mt-2 block text-center rounded-xl px-4 py-3 text-sm font-bold">Coba Gratis 1x</a>
+  </div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero-glow relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28">
+  <div class="mx-auto max-w-6xl px-5 grid lg:grid-cols-2 gap-14 items-center">
+    <div>
+      <p class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-amber-soft">
+        <i data-icon="spark" class="w-3.5 h-3.5"></i> Slot trial bulan ini masih tersedia
+      </p>
+      <h1 class="mt-6 text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.1] tracking-tight">
+        Pendampingan Belajar <span class="text-amber-soft">Fokus</span> &amp; Menyenangkan untuk SD–SMA
+      </h1>
+      <p class="mt-5 max-w-xl text-lg text-mist leading-relaxed">
+        Les privat 1-on-1 dengan tutor yang sabar dan terverifikasi. Guru datang ke rumah atau belajar online, sesuai ritme dan kebutuhan anak Anda.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-3">
+        <a href="#daftar" class="btn-glow rounded-2xl px-7 py-4 text-center font-bold">Daftar Free Trial</a>
+        <a href="https://wa.me/6281358833955?text=Halo%20Lentera%20Belajar%2C%20saya%20ingin%20konsultasi" target="_blank" rel="noopener" class="btn-ghost rounded-2xl px-7 py-4 text-center font-semibold inline-flex items-center justify-center gap-2">
+          <i data-icon="chat" class="w-5 h-5"></i> Konsultasi via WhatsApp
+        </a>
+      </div>
+      <dl class="mt-12 grid grid-cols-3 gap-4 max-w-lg">
+        <div><dt class="text-sm text-mist">Siswa aktif</dt><dd class="mt-1 text-2xl font-extrabold">500+</dd></div>
+        <div><dt class="text-sm text-mist">Tutor PTN</dt><dd class="mt-1 text-2xl font-extrabold">Terverifikasi</dd></div>
+        <div><dt class="text-sm text-mist">Rating orang tua</dt><dd class="mt-1 text-2xl font-extrabold text-amber-soft">4,9/5</dd></div>
+      </dl>
+    </div>
+
+    <!-- Lentera -->
+    <div class="relative mx-auto w-full max-w-sm aspect-square grid place-items-center" aria-hidden="true">
+      <div class="flame-glow absolute inset-6 rounded-full" style="background:radial-gradient(circle, rgba(251,191,36,.38) 0%, rgba(245,158,11,.12) 45%, transparent 70%)"></div>
+      <svg class="lantern relative w-56 sm:w-64" viewBox="0 0 200 300" fill="none">
+        <line x1="100" y1="0" x2="100" y2="44" stroke="#94A3B8" stroke-width="3"/>
+        <circle cx="100" cy="44" r="7" stroke="#FBBF24" stroke-width="3"/>
+        <path d="M60 78 Q100 40 140 78 Z" fill="#1B2742" stroke="#FBBF24" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="56" y="78" width="88" height="10" rx="4" fill="#F59E0B"/>
+        <path d="M62 88 H138 L148 200 Q100 218 52 200 Z" fill="rgba(251,191,36,.14)" stroke="#FBBF24" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M100 88 V208 M80 88 L74 205 M120 88 L126 205" stroke="#FBBF24" stroke-opacity=".35" stroke-width="2"/>
+        <g class="flame-glow" style="transform-origin:100px 160px">
+          <path d="M100 118 C118 140 122 158 100 176 C78 158 82 140 100 118 Z" fill="#FBBF24"/>
+          <path d="M100 140 C108 152 108 162 100 170 C92 162 92 152 100 140 Z" fill="#FFF3C4"/>
+        </g>
+        <rect x="50" y="200" width="100" height="14" rx="5" fill="#F59E0B"/>
+        <rect x="64" y="214" width="72" height="10" rx="4" fill="#1B2742" stroke="#FBBF24" stroke-width="2"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- KEUNGGULAN -->
+<section id="keunggulan" class="py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Belajar jadi lebih terarah, orang tua lebih tenang</h2>
+      <p class="mt-4 text-mist text-lg">Empat hal yang kami jaga di setiap sesi, supaya anak nyaman dan perkembangannya terlihat jelas.</p>
+    </div>
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <article class="card rounded-2xl p-6">
+        <span class="grid place-items-center w-12 h-12 rounded-xl bg-amber/15 text-amber-soft"><i data-icon="shield" class="w-6 h-6"></i></span>
+        <h3 class="mt-5 text-lg font-bold">Tutor Terverifikasi</h3>
+        <p class="mt-2 text-sm leading-relaxed text-mist">Mahasiswa dan lulusan PTN yang lolos seleksi akademik, tes mengajar, dan pengecekan identitas.</p>
+      </article>
+      <article class="card rounded-2xl p-6">
+        <span class="grid place-items-center w-12 h-12 rounded-xl bg-amber/15 text-amber-soft"><i data-icon="clock" class="w-6 h-6"></i></span>
+        <h3 class="mt-5 text-lg font-bold">Jadwal Fleksibel</h3>
+        <p class="mt-2 text-sm leading-relaxed text-mist">Pilih hari dan jam sesuai aktivitas anak. Bisa di rumah atau online, dan bisa diatur ulang bila ada acara.</p>
+      </article>
+      <article class="card rounded-2xl p-6">
+        <span class="grid place-items-center w-12 h-12 rounded-xl bg-amber/15 text-amber-soft"><i data-icon="user" class="w-6 h-6"></i></span>
+        <h3 class="mt-5 text-lg font-bold">Metode Personal 1-on-1</h3>
+        <p class="mt-2 text-sm leading-relaxed text-mist">Satu tutor untuk satu anak. Materi disesuaikan dengan gaya belajar dan bagian yang masih sulit.</p>
+      </article>
+      <article class="card rounded-2xl p-6">
+        <span class="grid place-items-center w-12 h-12 rounded-xl bg-amber/15 text-amber-soft"><i data-icon="chart" class="w-6 h-6"></i></span>
+        <h3 class="mt-5 text-lg font-bold">Laporan Rutin ke Orang Tua</h3>
+        <p class="mt-2 text-sm leading-relaxed text-mist">Ringkasan materi, perkembangan, dan saran belajar dikirim lewat WhatsApp setiap sesi dan rapor tiap bulan.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section id="program" class="py-20 sm:py-24 bg-navy/50 border-y border-white/5">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Program untuk setiap jenjang</h2>
+      <p class="mt-4 text-mist text-lg">Pilih jenjang anak untuk melihat mata pelajaran dan fokus belajarnya.</p>
+    </div>
+    <div role="tablist" aria-label="Jenjang" class="mt-10 inline-flex p-1.5 rounded-2xl glass">
+      <button role="tab" class="tab-btn rounded-xl px-6 py-2.5 text-sm font-bold transition-colors" data-tab="sd" aria-selected="true">SD</button>
+      <button role="tab" class="tab-btn rounded-xl px-6 py-2.5 text-sm font-bold text-mist transition-colors" data-tab="smp" aria-selected="false">SMP</button>
+      <button role="tab" class="tab-btn rounded-xl px-6 py-2.5 text-sm font-bold text-mist transition-colors" data-tab="sma" aria-selected="false">SMA</button>
+    </div>
+    <div id="tabPanel" class="mt-8 grid lg:grid-cols-5 gap-5" role="tabpanel"></div>
+  </div>
+</section>
+
+<!-- HARGA -->
+<section id="harga" class="py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Paket harga yang jelas, tanpa biaya tersembunyi</h2>
+      <p class="mt-4 text-mist text-lg">Setiap sesi berdurasi 90 menit. Harga mulai dari dan dapat berbeda sesuai jenjang serta lokasi.</p>
+    </div>
+    <div class="mt-14 grid md:grid-cols-3 gap-6 items-stretch">
+      <article class="card rounded-3xl p-8 flex flex-col">
+        <h3 class="text-xl font-bold">Paket Reguler</h3>
+        <p class="mt-1 text-sm text-mist">4x pertemuan per bulan</p>
+        <p class="mt-6"><span class="text-4xl font-extrabold">Rp320.000</span><span class="text-mist text-sm"> /bulan</span></p>
+        <ul class="mt-6 space-y-3 text-sm text-mist flex-1">
+          <li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>1 mata pelajaran pilihan</li>
+          <li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>Laporan setelah setiap sesi</li>
+          <li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>Bantuan PR</li>
+        </ul>
+        <a href="#daftar" class="btn-ghost mt-8 rounded-xl px-5 py-3 text-center font-semibold">Pilih Reguler</a>
+      </article>
+
+      <article class="relative rounded-3xl p-8 flex flex-col border-2 border-amber bg-navy md:-mt-4 md:mb-[-1rem] transition-transform duration-300 hover:-translate-y-1" style="box-shadow:0 0 60px -15px rgba(245,158,11,.45)">
+        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-amber-soft px-4 py-1 text-xs font-extrabold text-night">Paling Populer</span>
+        <h3 class="text-xl font-bold">Paket Intensif</h3>
+        <p class="mt-1 text-sm text-mist">8x pertemuan per bulan</p>
+        <p class="mt-6"><span class="text-4xl font-extrabold text-amber-soft">Rp600.000</span><span class="text-mist text-sm"> /bulan</span></p>
+        <ul class="mt-6 space-y-3 text-sm text-mist flex-1">
+          <li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>Hingga 2 mata pelajaran</li>
+          <li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>Latihan soal &amp; evaluasi mingguan</li>
+          <li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>Rapor perkembangan bulanan</li>
+          <li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>Sesi pengganti bila tutor berhalangan</li>
+        </ul>
+        <a href="#daftar" class="btn-glow mt-8 rounded-xl px-5 py-3 text-center font-bold">Pilih Intensif</a>
+      </article>
+
+      <article class="card rounded-3xl p-8 flex flex-col">
+        <h3 class="text-xl font-bold">Paket Fokus Ujian</h3>
+        <p class="mt-1 text-sm text-mist">12x pertemuan per bulan</p>
+        <p class="mt-6"><span class="text-4xl font-extrabold">Rp850.000</span><span class="text-mist text-sm"> /bulan</span></p>
+        <ul class="mt-6 space-y-3 text-sm text-mist flex-1">
+          <li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>Persiapan ANBK, UN-setara, PAS, atau UTBK</li>
+          <li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>Try out berkala dengan pembahasan</li>
+          <li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>Strategi belajar &amp; manajemen waktu</li>
+        </ul>
+        <a href="#daftar" class="btn-ghost mt-8 rounded-xl px-5 py-3 text-center font-semibold">Pilih Fokus Ujian</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CARA DAFTAR -->
+<section id="daftar" class="py-20 sm:py-24 bg-navy/50 border-y border-white/5">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Mulai belajar dalam tiga langkah</h2>
+      <p class="mt-4 text-mist text-lg">Tidak perlu ribet. Sesi trial pertama gratis dan tanpa kewajiban lanjut.</p>
+    </div>
+    <ol class="mt-12 grid md:grid-cols-3 gap-5">
+      <li class="card rounded-2xl p-7">
+        <span class="grid place-items-center w-11 h-11 rounded-full bg-amber-soft text-night font-extrabold">1</span>
+        <h3 class="mt-5 text-lg font-bold">Konsultasi &amp; pilih mapel</h3>
+        <p class="mt-2 text-sm leading-relaxed text-mist">Ceritakan kebutuhan anak lewat WhatsApp. Kami bantu pilih mata pelajaran, paket, dan tutor yang paling cocok.</p>
+      </li>
+      <li class="card rounded-2xl p-7">
+        <span class="grid place-items-center w-11 h-11 rounded-full bg-amber-soft text-night font-extrabold">2</span>
+        <h3 class="mt-5 text-lg font-bold">Coba sesi trial</h3>
+        <p class="mt-2 text-sm leading-relaxed text-mist">Anak bertemu tutor dan mencoba satu sesi gratis. Tidak cocok? Kami carikan tutor lain tanpa biaya.</p>
+      </li>
+      <li class="card rounded-2xl p-7">
+        <span class="grid place-items-center w-11 h-11 rounded-full bg-amber-soft text-night font-extrabold">3</span>
+        <h3 class="mt-5 text-lg font-bold">Mulai belajar rutin</h3>
+        <p class="mt-2 text-sm leading-relaxed text-mist">Tentukan jadwal tetap, belajar rutin, dan pantau perkembangan anak lewat laporan di WhatsApp Anda.</p>
+      </li>
+    </ol>
+    <div class="mt-10">
+      <a href="https://wa.me/6281358833955?text=Halo%20Lentera%20Belajar%2C%20saya%20ingin%20daftar%20free%20trial" target="_blank" rel="noopener" class="btn-glow inline-block rounded-2xl px-8 py-4 font-bold">Daftar Free Trial Sekarang</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section id="testimoni" class="py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Cerita dari orang tua dan siswa</h2>
+    </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-5">
+      <figure class="card rounded-2xl p-7 flex flex-col">
+        <div class="flex gap-1 text-amber-soft"><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i></div>
+        <blockquote class="mt-4 text-sm leading-relaxed text-ink/90 flex-1">“Anak saya kelas 3 SD dulu malas membaca. Sekarang dia justru menunggu jadwal les. Kak Rani sabar sekali, dan laporan setiap selesai sesi bikin saya tahu persis progresnya.”</blockquote>
+        <figcaption class="mt-6 flex items-center gap-3">
+          <span class="grid place-items-center w-10 h-10 rounded-full bg-amber/20 text-amber-soft font-bold">DP</span>
+          <span class="text-sm"><b class="block">Ibu Dewi Puspita</b><span class="text-mist">Orang tua siswa kelas 3 SD, Madiun</span></span>
+        </figcaption>
+      </figure>
+      <figure class="card rounded-2xl p-7 flex flex-col">
+        <div class="flex gap-1 text-amber-soft"><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i></div>
+        <blockquote class="mt-4 text-sm leading-relaxed text-ink/90 flex-1">“Matematika dulu bikin pusing. Kak Bayu jelasinnya pakai contoh sehari-hari, jadi gampang nyambung. Nilai ulangan aku naik dari 60-an ke 85 dalam dua bulan.”</blockquote>
+        <figcaption class="mt-6 flex items-center gap-3">
+          <span class="grid place-items-center w-10 h-10 rounded-full bg-amber/20 text-amber-soft font-bold">AF</span>
+          <span class="text-sm"><b class="block">Alya Fitriani</b><span class="text-mist">Siswi kelas 8 SMP</span></span>
+        </figcaption>
+      </figure>
+      <figure class="card rounded-2xl p-7 flex flex-col">
+        <div class="flex gap-1 text-amber-soft"><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i><i data-icon="star" class="w-4 h-4"></i></div>
+        <blockquote class="mt-4 text-sm leading-relaxed text-ink/90 flex-1">“Ikut Paket Fokus Ujian buat UTBK. Try out rutin dan pembahasannya detail banget, jadi aku tahu bagian mana yang harus dikejar. Tutornya alumni PTN yang paham strategi.”</blockquote>
+        <figcaption class="mt-6 flex items-center gap-3">
+          <span class="grid place-items-center w-10 h-10 rounded-full bg-amber/20 text-amber-soft font-bold">RM</span>
+          <span class="text-sm"><b class="block">Raka Mahendra</b><span class="text-mist">Siswa kelas 12 SMA</span></span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="py-20 sm:py-24 bg-navy/50 border-t border-white/5">
+  <div class="mx-auto max-w-3xl px-5">
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-center">Pertanyaan yang sering ditanyakan</h2>
+    <div class="mt-10 space-y-3" id="faqList">
+      <div class="faq-item card rounded-2xl">
+        <button class="w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold" aria-expanded="false">
+          Bagaimana kalau anak tidak cocok dengan tutornya?
+          <i data-icon="chevron" class="faq-chev w-5 h-5 text-amber-soft shrink-0"></i>
+        </button>
+        <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-5 text-sm leading-relaxed text-mist">Kami ganti tutor tanpa biaya tambahan. Cukup kabari tim kami lewat WhatsApp, dan tutor baru yang lebih sesuai biasanya sudah kami siapkan dalam 2–3 hari kerja.</p></div></div>
+      </div>
+      <div class="faq-item card rounded-2xl">
+        <button class="w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold" aria-expanded="false">
+          Bagaimana jika anak izin atau jadwal berubah?
+          <i data-icon="chevron" class="faq-chev w-5 h-5 text-amber-soft shrink-0"></i>
+        </button>
+        <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-5 text-sm leading-relaxed text-mist">Sesi bisa dijadwalkan ulang gratis jika Anda memberi kabar minimal 6 jam sebelumnya. Jika tutor yang berhalangan, kami sediakan sesi pengganti.</p></div></div>
+      </div>
+      <div class="faq-item card rounded-2xl">
+        <button class="w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold" aria-expanded="false">
+          Bagaimana sistem pembayarannya?
+          <i data-icon="chevron" class="faq-chev w-5 h-5 text-amber-soft shrink-0"></i>
+        </button>
+        <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-5 text-sm leading-relaxed text-mist">Pembayaran dilakukan per bulan, di muka, lewat transfer bank atau e-wallet. Sesi trial pertama gratis, jadi Anda baru membayar setelah memutuskan lanjut.</p></div></div>
+      </div>
+      <div class="faq-item card rounded-2xl">
+        <button class="w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold" aria-expanded="false">
+          Area mana saja yang dilayani untuk les di rumah?
+          <i data-icon="chevron" class="faq-chev w-5 h-5 text-amber-soft shrink-0"></i>
+        </button>
+        <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-5 text-sm leading-relaxed text-mist">Kami melayani kunjungan ke rumah di Madiun dan sekitarnya. Di luar area itu, Anda tetap bisa belajar lewat kelas online dengan kualitas yang sama.</p></div></div>
+      </div>
+      <div class="faq-item card rounded-2xl">
+        <button class="w-full flex items-center justify-between gap-4 text-left px-6 py-5 font-semibold" aria-expanded="false">
+          Apakah les online sama efektifnya dengan tatap muka?
+          <i data-icon="chevron" class="faq-chev w-5 h-5 text-amber-soft shrink-0"></i>
+        </button>
+        <div class="faq-body"><div class="overflow-hidden"><p class="px-6 pb-5 text-sm leading-relaxed text-mist">Ya. Sesi online tetap 1-on-1 dengan papan tulis digital dan materi yang sama. Anda bisa memilih format yang paling nyaman, bahkan menggabungkan keduanya.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/5 pt-16 pb-8">
+  <div class="mx-auto max-w-6xl px-5 grid gap-10 md:grid-cols-3">
+    <div>
+      <a href="#top" class="flex items-center gap-2.5 font-extrabold text-lg">
+        <span class="grid place-items-center w-9 h-9 rounded-xl bg-amber/15 text-amber-soft"><i data-icon="lantern" class="w-5 h-5"></i></span>
+        Lentera Belajar
+      </a>
+      <p class="mt-4 max-w-xs text-sm leading-relaxed text-mist">Les privat 1-on-1 untuk SD, SMP, dan SMA. Menemani anak belajar dengan fokus, sabar, dan menyenangkan.</p>
+    </div>
+    <div>
+      <h3 class="font-bold">Navigasi</h3>
+      <ul class="mt-4 space-y-2.5 text-sm text-mist">
+        <li><a class="hover:text-amber-soft transition-colors" href="#program">Program</a></li>
+        <li><a class="hover:text-amber-soft transition-colors" href="#keunggulan">Keunggulan</a></li>
+        <li><a class="hover:text-amber-soft transition-colors" href="#harga">Paket Harga</a></li>
+        <li><a class="hover:text-amber-soft transition-colors" href="#testimoni">Testimoni</a></li>
+        <li><a class="hover:text-amber-soft transition-colors" href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-bold">Hubungi kami</h3>
+      <ul class="mt-4 space-y-3 text-sm text-mist">
+        <li><a class="inline-flex items-center gap-2.5 hover:text-amber-soft transition-colors" href="https://wa.me/6281358833955" target="_blank" rel="noopener"><i data-icon="chat" class="w-4 h-4"></i>WhatsApp 0813-5883-3955</a></li>
+        <li><a class="inline-flex items-center gap-2.5 hover:text-amber-soft transition-colors" href="https://instagram.com/lenterabelajar.id" target="_blank" rel="noopener"><i data-icon="insta" class="w-4 h-4"></i>@lenterabelajar.id</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="mt-14 text-center text-xs text-mist">© <span id="year">2026</span> Lentera Belajar. Seluruh hak cipta dilindungi.</p>
+</footer>
+
+<script>
+// Ikon SVG inline (gaya garis minimalis)
+const ICONS = {
+  lantern:'<path d="M9 3h6M12 3v2M8 7h8l1 9a5 5 0 0 1-10 0z"/><path d="M12 10c1.5 1.5 1.5 3 0 4-1.5-1-1.5-2.500 0-4z"/><path d="M9 21h6"/>',
+  menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',
+  close:'<path d="M6 6l12 12M18 6L6 18"/>',
+  spark:'<path d="M12 3l1.8 5.2L19 10l-5.200 1.800L12 17l-1.800-5.200L5 10l5.200-1.800z"/>',
+  chat:'<path d="M21 12a8 8 0 0 1-11.800 7L4 20l1.200-4.500A8 8 0 1 1 21 12z"/>',
+  shield:'<path d="M12 3l8 3v6c0 4.500-3.200 7.800-8 9-4.800-1.200-8-4.500-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.500-6 8-6s8 2 8 6"/>',
+  chart:'<path d="M4 20V4M4 20h16"/><path d="M8 15l3-4 3 2 5-6"/>',
+  check:'<path d="M5 12.500l4.500 4.500L19 7.500"/>',
+  star:'<path d="M12 3l2.700 5.600 6.100.9-4.400 4.300 1 6.100L12 17l-5.400 2.900 1-6.100L3.200 9.500l6.100-.9z" fill="currentColor"/>',
+  chevron:'<path d="M6 9l6 6 6-6"/>',
+  insta:'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.500" cy="6.500" r="1" fill="currentColor"/>'
+};
+function paintIcons(root=document){
+  root.querySelectorAll('i[data-icon]').forEach(el=>{
+    const p = ICONS[el.dataset.icon]; if(!p) return;
+    const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 24 24'); svg.setAttribute('fill','none');
+    svg.setAttribute('stroke','currentColor'); svg.setAttribute('stroke-width','1.800');
+    svg.setAttribute('stroke-linecap','round'); svg.setAttribute('stroke-linejoin','round');
+    svg.setAttribute('class', el.className); svg.setAttribute('aria-hidden','true');
+    svg.innerHTML = p; el.replaceWith(svg);
+  });
+}
+paintIcons();
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Menu mobile
+const menuBtn = document.getElementById('menuBtn'), mobileMenu = document.getElementById('mobileMenu');
+function setMenu(open){
+  mobileMenu.classList.toggle('hidden', !open);
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.innerHTML = `<i data-icon="${open?'close':'menu'}" class="w-5 h-5"></i>`; paintIcons(menuBtn);
+}
+menuBtn.addEventListener('click', ()=> setMenu(mobileMenu.classList.contains('hidden')));
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>setMenu(false)));
+
+// Tab program
+const PROGRAMS = {
+  sd:{ title:'Kelas 1–6 SD', desc:'Membangun fondasi: membaca lancar, berhitung percaya diri, dan kebiasaan belajar yang menyenangkan.',
+       mapel:['Matematika','Bahasa Indonesia','IPA','IPS','Bahasa Inggris dasar','Calistung (kelas 1–2)'],
+       fokus:['Lancar membaca & menulis','Menguasai perkalian dan pembagian','Bantuan PR dan persiapan ulangan','Belajar lewat permainan dan cerita'] },
+  smp:{ title:'Kelas 7–9 SMP', desc:'Memperdalam konsep dan membiasakan berpikir logis menjelang ujian sekolah dan seleksi SMA.',
+       mapel:['Matematika','IPA Terpadu','Bahasa Inggris','Bahasa Indonesia','IPS','Informatika'],
+       fokus:['Konsep aljabar dan geometri','Latihan soal ulangan & PAS','Persiapan seleksi SMA favorit','Teknik mencatat dan mengatur waktu'] },
+  sma:{ title:'Kelas 10–12 SMA', desc:'Pendampingan materi sulit, persiapan UTBK, dan strategi masuk perguruan tinggi negeri.',
+       mapel:['Matematika Peminatan','Fisika','Kimia','Biologi','Ekonomi','Bahasa Inggris','Persiapan UTBK-SNBT'],
+       fokus:['Penalaran dan literasi UTBK','Try out berkala dengan pembahasan','Strategi memilih jurusan & kampus','Pendalaman materi yang paling sulit'] }
+};
+const panel = document.getElementById('tabPanel');
+function renderTab(key){
+  const d = PROGRAMS[key];
+  panel.innerHTML = `
+    <div class="card rounded-2xl p-7 lg:col-span-2">
+      <h3 class="text-2xl font-extrabold text-amber-soft">${d.title}</h3>
+      <p class="mt-3 text-sm leading-relaxed text-mist">${d.desc}</p>
+      <p class="mt-6 font-bold text-sm">Fokus belajar</p>
+      <ul class="mt-3 space-y-3 text-sm text-mist">${d.fokus.map(f=>`<li class="flex gap-3"><i data-icon="check" class="w-5 h-5 text-amber-soft shrink-0"></i>${f}</li>`).join('')}</ul>
+    </div>
+    <div class="card rounded-2xl p-7 lg:col-span-3">
+      <p class="font-bold">Mata pelajaran tersedia</p>
+      <div class="mt-4 flex flex-wrap gap-2.5">${d.mapel.map(m=>`<span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm">${m}</span>`).join('')}</div>
+      <p class="mt-6 text-sm text-mist">Tidak menemukan mapel yang dicari? Tanyakan lewat WhatsApp, kami carikan tutor yang sesuai.</p>
+    </div>`;
+  paintIcons(panel);
+}
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>{ b.setAttribute('aria-selected', b===btn); b.classList.toggle('text-mist', b!==btn); });
+    renderTab(btn.dataset.tab);
+  });
+});
+renderTab('sd');
+
+// FAQ accordion
+document.querySelectorAll('.faq-item > button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const item = btn.parentElement, open = !item.classList.contains('open');
+    item.classList.toggle('open', open); btn.setAttribute('aria-expanded', open);
+  });
+});
+</script>
+</body>
+</html>
